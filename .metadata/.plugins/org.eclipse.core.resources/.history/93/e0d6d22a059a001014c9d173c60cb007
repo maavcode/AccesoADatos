@@ -1,0 +1,194 @@
+package Ejercicio_01;
+
+import org.bson.Document;
+import org.bson.conversions.Bson;
+
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Projections;
+import com.mongodb.client.model.Sorts;
+
+public class FiltrosBiblioteca {
+	public static void main(String [] args) {
+		Document doc = null;
+		// Conexion al servidor
+		MongoClient mongoCliente = MongoClients.create();
+		// Conexion a la base de datos
+		MongoDatabase dbBiblioteca= mongoCliente.getDatabase("Biblioteca");
+		// Conexion a una coleccion en especifico
+		MongoCollection colLibros = dbBiblioteca.getCollection("Libros");
+		MongoCollection colPrestamos = dbBiblioteca.getCollection("Prestamos");
+		MongoCollection colSocios = dbBiblioteca.getCollection("Socios");
+		// Metodo que busca todos los registros find() | .iterator sirve para que la coleccion sea recorrible
+		MongoCursor <Document> cursor;
+		
+		// Ejercicio 1: Obtener primer registro
+		cursor = colLibros.find().iterator();
+		System.out.println("-- Primer libro --");
+		doc = (Document) colLibros.find().first();
+		System.out.println(doc.toJson());
+		
+		// Ejercicio 2: Obtener lista libros
+		System.out.println("-- Lista de libros --");
+		while (cursor.hasNext())  {
+			// Devuelve .bson
+//			System.out.println(cursor.next());
+			// Devuelve .json
+			System.out.println(cursor.next().toJson());
+		}
+		cursor = colLibros.find().iterator();
+		
+		// Ejercicio 3: Obtener lista de socios
+		System.out.println("-- Lista de Socios --");
+		cursor = colSocios.find().iterator();
+		
+		while (cursor.hasNext()) {
+			System.out.println(cursor.next().toJson());
+			
+		}
+		cursor = colSocios.find().iterator();
+		
+		// Ejercicio 4: Obtener nombre de los socios
+		System.out.println("-- Nombre de los socios --");
+		while (cursor.hasNext()) {
+			System.out.println("Nombre: " + cursor.next().get("Nombre"));
+			
+		}
+		
+		// ----- FILTROS BSON -----
+		Bson bsonFilter;
+		// Ejercicio 5: Buscar libro titulado "El Quijote"
+		System.out.println("-- Buscar libro El Quijote --");
+		bsonFilter = Filters.eq("titulo", "El Quijote");
+		doc = (Document) colLibros.find(bsonFilter).first(); // Solo hay uno, entonces .first. SI hubiera mas, .iterator
+		System.out.println("Titulo: " + doc.get("titulo"));
+		System.out.println("Titulo: " + doc.get("autor"));
+		
+		// Ejercicio 6.1: Mostrar los prestamos con 2 libros
+		cursor = colPrestamos.find().iterator();
+		
+		bsonFilter = Filters.size("libro", 2);
+		cursor = colPrestamos.find(bsonFilter).iterator();
+		
+		while (cursor.hasNext()) {
+			System.out.println(cursor.next());
+			
+		}
+		
+		// Ejercicio 6.2: Mostrar libros con isbn mayor a 45000
+		System.out.println("-- Libros con isbn > 45000 --");
+		bsonFilter = Filters.gt("ISBN", 45000);
+		cursor = colLibros.find(bsonFilter).iterator();
+		
+		while (cursor.hasNext()) {
+			System.out.println("Libro: " + cursor.next().get("titulo"));
+			
+		}
+		// Ejercicio 7: Buscar libros de Follet
+		System.out.println("-- Libros de Follet --");
+		bsonFilter = Filters.eq("autor.apellido", "Follet"); // Creo el filtro
+		cursor = colLibros.find(bsonFilter).iterator(); // hago un cursor de todos las colecciones que cumplan el filtro
+		while (cursor.hasNext()) {
+			System.out.println("Libro: " + cursor.next().get("titulo"));
+			
+		}
+		// Ejercicio 9: Buscar los que han tenido prestado 456779
+		System.out.println("-- Socios con libro 456779 prestado --");
+		
+		
+		bsonFilter = Filters.eq("libro.ISBN","456779");
+		cursor = colPrestamos.find(bsonFilter).iterator();
+		while (cursor.hasNext()) {
+			doc = (Document) cursor.next().get("socio"); // Cogo el documento del socio
+			System.out.println("Numero de socio: " + doc.get("num_socio")); // Saco el numero de socio
+		}
+
+		bsonFilter = Filters.eq("Num_socio", doc.get("num_socio"));
+		
+		cursor = colSocios.find(bsonFilter).iterator();
+
+		while (cursor.hasNext()) {
+			System.out.println("Nombre: " + cursor.next().get("Nombre"));
+		}
+		
+		// Ejercicio 10.1: Libros de mas de 500 paginas y que tienen un anyo de publicacion mayor a 2000
+		System.out.println("Libros >2000 con +500 paginas");
+		bsonFilter = Filters.and(Filters.gt("páginas", 500), Filters.gt("año_publicacion", 2000));
+		cursor = colLibros.find(bsonFilter).iterator();
+		while (cursor.hasNext()) {
+			doc = cursor.next();
+			System.out.println(doc.get("año_publicacion") + " Libro: " + doc.get("titulo") + " " + doc.get("páginas"));
+		}
+		
+		// Ejercicio 10.2: Libro de mas de 500 paginas y que son de la editorial Plaza&Janes
+		System.out.println("-- Libros de +500 paginas y de la editorial Plaza&Janes --");
+		
+		bsonFilter = Filters.and(Filters.eq("editorial","Plaza&Janes"), Filters.gt("páginas", 500));
+		cursor = colLibros.find(bsonFilter).iterator();
+		while (cursor.hasNext()) {
+			doc = cursor.next();
+			System.out.println("Libro: " + doc.get("titulo") + " " + doc.get("páginas"));
+		}
+		
+		//Ejercicio 11: Libros publicados entre 2010 y 2020
+		System.out.println("-- Libros publicados entre 2010 y 2020 --");
+		
+		bsonFilter = Filters.and(Filters.gte("año_publicacion", 2010), Filters.lte("año_publicacion", 2020));
+		cursor = colLibros.find(bsonFilter).iterator();
+		while (cursor.hasNext()) {
+			doc = cursor.next();
+			System.out.println(doc.get("año_publicacion") + " Libro: " + doc.get("titulo"));
+			
+		}
+		
+		// Ejercicio 12: Buscar los libros de la editorial "Debolsillo"
+		System.out.println("-- Libros de la editorial Debolsillo --");
+		
+		bsonFilter = Filters.eq("editorial","Debolsillo");
+		cursor = colLibros.find(bsonFilter).iterator();
+		while (cursor.hasNext()) {
+			doc = cursor.next();
+			System.out.println("Libro: " + doc.get("titulo") + " " + doc.get("editorial"));
+		}
+		
+		// Ejercicio 13: Mostrar nombre de socio 2
+		System.out.println("-- Nombre del socio 2 --");
+		
+		bsonFilter = Filters.eq("Num_socio", 2);
+		cursor = colSocios.find(bsonFilter).iterator();
+		while (cursor.hasNext()) {
+			doc = cursor.next();
+			System.out.println("Nombre: " + doc.get("Nombre") + " " + doc.get("Num_socio"));
+		}
+		
+		// Buscar dentro de una cadena
+			// Projection: Mostrat fecha de prestamo y de devolucion del libro del socio 2
+		System.out.println("-- Fecha de prestamo y devolucion de socio 2 --");
+		
+		bsonFilter = Filters.eq("socio.num_socio", 2);	
+		cursor = colPrestamos.find(bsonFilter)
+				.projection(Projections.fields(Projections.include("fecha_dev", "fecha_pres"), Projections.exclude("_id")))
+				.iterator();
+		while (cursor.hasNext()) {
+			doc = cursor.next();
+			System.out.println("Prestamos " + doc.toJson());
+		}
+			//Projection: Mostrar autor y numero de paginas
+		bsonFilter = Filters.and(Filters.gt("páginas",500), Filters.eq("editorial", "Plaza&Janes"));
+		cursor = colLibros.find(bsonFilter)
+				.sort(Sorts.descending("páginas"))
+				.projection(Projections.fields(Projections.include("autor.nombre", "páginas"), Projections.excludeId()))
+				.iterator();
+		while (cursor.hasNext()) {
+			doc = cursor.next();
+			System.out.println("libro Plaza$Janes ordenado" + doc.toJson());
+			
+		}
+		
+		// Ejercicio 14: Buscar libros que sean autores de nacionalidad americana o de la editorial planeta
+	}
+}

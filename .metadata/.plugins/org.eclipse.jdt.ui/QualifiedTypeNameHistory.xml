@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="com.mongodb.client.MongoClient"/>
+    <fullyQualifiedTypeName name="com.mongodb.client.MongoClients"/>
+    <fullyQualifiedTypeName name="com.mongodb.client.MongoDatabase"/>
+    <fullyQualifiedTypeName name="com.mongodb.client.MongoCollection"/>
+    <fullyQualifiedTypeName name="javax.swing.text.Document"/>
+    <fullyQualifiedTypeName name="java.text.CollationElementIterator"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.util.Date"/>
+    <fullyQualifiedTypeName name="org.bson.Document"/>
+    <fullyQualifiedTypeName name="java.time.LocalDateTime"/>
+    <fullyQualifiedTypeName name="org.bson.conversions.Bson"/>
+    <fullyQualifiedTypeName name="com.mongodb.client.model.Filters"/>
+    <fullyQualifiedTypeName name="com.mongodb.client.model.Sorts"/>
+    <fullyQualifiedTypeName name="com.mongodb.client.model.Projections"/>
+    <fullyQualifiedTypeName name="com.mongodb.client.MongoCursor"/>
+</qualifiedTypeNameHistroy>

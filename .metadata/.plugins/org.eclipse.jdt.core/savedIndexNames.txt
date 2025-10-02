@@ -1,0 +1,8 @@
+INDEX VERSION 1.134+C:\Users\windows10\Documents\Clase\AccesoADatos\.metadata\.plugins\org.eclipse.jdt.core
+4182657075.index
+1865797976.index
+636225494.index
+2267676119.index
+4185527449.index
+1665602800.index
+1114229677.index
