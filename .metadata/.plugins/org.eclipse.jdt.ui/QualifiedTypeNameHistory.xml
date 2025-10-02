@@ -16,4 +16,6 @@
     <fullyQualifiedTypeName name="com.mongodb.client.model.Sorts"/>
     <fullyQualifiedTypeName name="com.mongodb.client.model.Projections"/>
     <fullyQualifiedTypeName name="com.mongodb.client.MongoCursor"/>
+    <fullyQualifiedTypeName name="java.lang.Object"/>
+    <fullyQualifiedTypeName name="org.json.simple.JSONObject"/>
 </qualifiedTypeNameHistroy>

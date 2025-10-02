@@ -52,9 +52,9 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="UD1_JSON"/>
 			<item value="UD1B-JSON"/>
 			<item value="UD1_JSONData"/>
-			<item value="UD1_JSON"/>
 			<item value="Help"/>
 		</list>
 		<list key="projectNameTemplate">
