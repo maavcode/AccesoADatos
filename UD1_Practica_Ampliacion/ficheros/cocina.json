@@ -1,0 +1,58 @@
+[
+  {
+    "nombre": "Gazpacho",
+    "tipo": "Sopa fría",
+    "ingredientes": [
+      {
+        "nombre": "Tomate",
+        "cantidad": "1 kg"
+      },
+      {
+        "nombre": "Pimiento verde",
+        "cantidad": "100 g"
+      }
+    ]
+  },
+  {
+    "nombre": "Tortilla española",
+    "tipo": "Primero",
+    "ingredientes": [
+      {
+        "nombre": "Patata",
+        "cantidad": "500 g"
+      },
+      {
+        "nombre": "Huevo",
+        "cantidad": "4 ud"
+      }
+    ]
+  },
+  {
+    "nombre": "Ensalada",
+    "tipo": "Entrante",
+    "ingredientes": [
+      {
+        "nombre": "Tomate",
+        "cantidad": "700 kg"
+      },
+      {
+        "nombre": "Lechuga",
+        "cantidad": "100 g"
+      }
+    ]
+  },
+  {
+    "nombre": "Bizcocho",
+    "tipo": "Postre",
+    "ingredientes": [
+      {
+        "nombre": "Harina",
+        "cantidad": "1 kg"
+      },
+      {
+        "nombre": "Huevo",
+        "cantidad": "5 ud"
+      }
+    ]
+  }
+]

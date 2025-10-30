@@ -2,6 +2,8 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="C:\Users\windows10\Documents\Clase\AccesoADatos\UD1_JSON\src\main\java\Practicas\productos.java"/>
+			<item value="C:\Users\windows10\Documents\Clase\AccesoADatos\UD1_JSON"/>
 			<item value="C:\Users\windows10\Documents\Clase\AccesoADatos"/>
 			<item value="C:\Users\windows10\Documents\Clase\Acceso a Datos"/>
 			<item value="C:\Users\windows10\Documents\Clase\Acceso a Datos\UD1_MongoBiblioteca\src\main\java\Ejercicio_01\FiltrosBiblioteca.java"/>
@@ -48,10 +50,15 @@
 	<section name="MavenProjectWizardArtifactPage">
 		<list key="groupId">
 			<item value="AD"/>
+			<item value="UD2_JDBC"/>
 		</list>
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="UD1_Practica_Cocina"/>
+			<item value="UD1_Practica_Concesionario"/>
+			<item value="UD2_JDBC_Ciclismo"/>
+			<item value="AD"/>
 			<item value="UD1_JSON"/>
 			<item value="UD1B-JSON"/>
 			<item value="UD1_JSONData"/>

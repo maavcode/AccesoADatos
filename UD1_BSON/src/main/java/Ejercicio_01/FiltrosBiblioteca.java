@@ -39,8 +39,8 @@ public class FiltrosBiblioteca {
 //			System.out.println(cursor.next());
 			// Devuelve .json
 			System.out.println(cursor.next().toJson());
+			cursor = colLibros.find().iterator();
 		}
-		cursor = colLibros.find().iterator();
 		
 		// Ejercicio 3: Obtener lista de socios
 		System.out.println("-- Lista de Socios --");
