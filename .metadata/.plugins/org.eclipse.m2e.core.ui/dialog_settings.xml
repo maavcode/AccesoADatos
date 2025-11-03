@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectWizardLocationPage">
 		<list key="location">
+			<item value="C:\Users\windows10\Documents\Clase\AccesoADatos\UtilesMaven\src\main\java\jdbc\ConexionJdbc.java"/>
 			<item value="C:\Users\windows10\Documents\Clase\AccesoADatos\UD1_JSON\src\main\java\Practicas\productos.java"/>
 			<item value="C:\Users\windows10\Documents\Clase\AccesoADatos\UD1_JSON"/>
 			<item value="C:\Users\windows10\Documents\Clase\AccesoADatos"/>
@@ -55,6 +56,7 @@
 		<list key="name">
 		</list>
 		<list key="artifactId">
+			<item value="UD2_MVC_Inventario"/>
 			<item value="UD1_Practica_Cocina"/>
 			<item value="UD1_Practica_Concesionario"/>
 			<item value="UD2_JDBC_Ciclismo"/>

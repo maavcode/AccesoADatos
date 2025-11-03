@@ -17,7 +17,6 @@
     <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="pojo.FootballPlayer"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
-    <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.util.Properties"/>
     <fullyQualifiedTypeName name="java.io.FileInputStream"/>
     <fullyQualifiedTypeName name="org.apache.commons.dbcp.BasicDataSourceFactory"/>
@@ -28,4 +27,11 @@
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="practica.ejercicio1"/>
+    <fullyQualifiedTypeName name="java.lang.Override"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="java.awt.Insets"/>
+    <fullyQualifiedTypeName name="excepciones.BusinessException"/>
+    <fullyQualifiedTypeName name="jdbc.ConexionJdbc"/>
+    <fullyQualifiedTypeName name="pojo.Departamento"/>
+    <fullyQualifiedTypeName name="dao.DaoDepartamento"/>
 </qualifiedTypeNameHistroy>

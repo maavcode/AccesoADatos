@@ -1,4 +1,21 @@
 [ {
+  "version" : "9.3.0-20251102002922+0000",
+  "buildTime" : "20251102002922+0000",
+  "commitId" : "6c9eca778c871a6310d2c3f2c3d3f8e67a915538",
+  "current" : false,
+  "snapshot" : true,
+  "nightly" : true,
+  "releaseNightly" : false,
+  "activeRc" : false,
+  "rcFor" : "",
+  "milestoneFor" : "",
+  "broken" : false,
+  "downloadUrl" : "https://services.gradle.org/distributions-snapshots/gradle-9.3.0-20251102002922+0000-bin.zip",
+  "checksumUrl" : "https://services.gradle.org/distributions-snapshots/gradle-9.3.0-20251102002922+0000-bin.zip.sha256",
+  "checksum" : "6a6217df39cd5eca3478df5729b1d02d1927963ed718de1584d9d858a892e885",
+  "wrapperChecksumUrl" : "https://services.gradle.org/distributions-snapshots/gradle-9.3.0-20251102002922+0000-wrapper.jar.sha256",
+  "wrapperChecksum" : "d652a0436e78e0cd4d00f52057fcf2179163762a71a02370ec7623ab8f84c334"
+}, {
   "version" : "9.2.0",
   "buildTime" : "20251029135323+0000",
   "commitId" : "d9d6bbce03b3d88c67ef5a0ff31f7ae5e332d6bf",
@@ -15,23 +32,6 @@
   "checksum" : "df67a32e86e3276d011735facb1535f64d0d88df84fa87521e90becc2d735444",
   "wrapperChecksumUrl" : "https://services.gradle.org/distributions/gradle-9.2.0-wrapper.jar.sha256",
   "wrapperChecksum" : "423cb469ccc0ecc31f0e4e1c309976198ccb734cdcbb7029d4bda0f18f57e8d9"
-}, {
-  "version" : "9.3.0-20251029004548+0000",
-  "buildTime" : "20251029004548+0000",
-  "commitId" : "2d373262d85be30662ebc0880dad1e31055c7546",
-  "current" : false,
-  "snapshot" : true,
-  "nightly" : true,
-  "releaseNightly" : false,
-  "activeRc" : false,
-  "rcFor" : "",
-  "milestoneFor" : "",
-  "broken" : false,
-  "downloadUrl" : "https://services.gradle.org/distributions-snapshots/gradle-9.3.0-20251029004548+0000-bin.zip",
-  "checksumUrl" : "https://services.gradle.org/distributions-snapshots/gradle-9.3.0-20251029004548+0000-bin.zip.sha256",
-  "checksum" : "972ce1bd0ca3044864e8af17551b7660fe395c6614d80b1007a27e586aed6360",
-  "wrapperChecksumUrl" : "https://services.gradle.org/distributions-snapshots/gradle-9.3.0-20251029004548+0000-wrapper.jar.sha256",
-  "wrapperChecksum" : "d652a0436e78e0cd4d00f52057fcf2179163762a71a02370ec7623ab8f84c334"
 }, {
   "version" : "9.2.0-20251028012738+0000",
   "buildTime" : "20251028012738+0000",
