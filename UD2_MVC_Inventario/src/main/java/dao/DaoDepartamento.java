@@ -3,136 +3,154 @@ package dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
-import pojo.Departamento;
-import dao.DaoGenerico;
 import excepciones.BusinessException;
 import jdbc.ConexionJdbc;
+import pojos.Departamento;
 
-public class DaoDepartamento extends DaoGenerico<Departamento,Integer> {
+public class DaoDepartamento extends DaoGenerico<Departamento, Integer> {
 
 	@Override
-	public void grabar(Departamento d) throws BusinessException{
-		// Inserta en la tabla departamento
-		
+	public void grabar(Departamento d) throws BusinessException {
 		PreparedStatement pstmt = null;
 		String sql = null;
-		ResultSet rs = null;
 		Integer id = null;
-		
-		// Obtenemos la conexión que ha creado la interfaz utilizando 
-		// la clase de utiles ConexionJdbc
-		
+		ResultSet rs = null;
 		try {
 			Connection con = ConexionJdbc.getConnection();
-			sql = "insert into departamento (nombre) values (?)";
+
+			sql = "INSERT INTO departamento (nombre) VALUES (?)";
 			pstmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setString(1, d.getNombre());
 			pstmt.executeUpdate();
-			// Devuelve el valor de la clave primaria
+
 			rs = pstmt.getGeneratedKeys();
-			if(rs.first()) {
-				id=rs.getInt(1);
-				d.setIdDepartamento(id);
-				System.out.println("El id: "+ id);
+			if (rs.first()) {
+				id = rs.getInt(1);
+				d.setIddepartamento(id);
+				System.out.println("El id: " + id);
 			}
-			
-		} catch (SQLException e) {
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			throw new BusinessException("Error al insertar");
+			throw new BusinessException("ERROR AL INSERTAR");
 		} finally {
 			ConexionJdbc.cerrar(pstmt);
-		}	
-	}	
-	
+		}
+
+	}
+
 	@Override
-	public void actualizar(Departamento d) throws BusinessException{
-		// Inserta en la tabla departamento
-		
+	public void actualizar(Departamento d) throws BusinessException {
+		PreparedStatement pstmt = null;
+		String sql = null;
+
+		try {
+			Connection con = ConexionJdbc.getConnection();
+
+			sql = "UPDATE departamento SET nombre = ? WHERE iddepartamento = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, d.getNombre());
+			pstmt.setInt(2, d.getIddepartamento());
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException("ERROR AL ACTUALIZAR");
+		} finally {
+			ConexionJdbc.cerrar(pstmt);
+		}
+
+	}
+
+	@Override
+	public void borrar(Integer id) throws BusinessException {
+		PreparedStatement pstmt = null;
+		String sql = null;
+
+		try {
+			Connection con = ConexionJdbc.getConnection();
+
+			sql = "DELETE FROM departamento WHERE iddepartamento = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			pstmt.executeUpdate();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new BusinessException("ERROR AL BORRAR");
+		} finally {
+			ConexionJdbc.cerrar(pstmt);
+		}
+
+	}
+
+	@Override
+	public void borrar(Departamento d) throws BusinessException {
+		borrar(d.getIddepartamento());
+	}
+
+	@Override
+	public Departamento buscarPorId(Integer id) throws BusinessException {
 		PreparedStatement pstmt = null;
 		String sql = null;
 		ResultSet rs = null;
-		Integer id = null;
-		
-		// Obtenemos la conexión que ha creado la interfaz utilizando 
-		// la clase de utiles ConexionJdbc
-		
+		Departamento result = null;
+
 		try {
 			Connection con = ConexionJdbc.getConnection();
-			sql = "update departamento set nombre=? where iddepartamento=?";
+
+			sql = "SELECT * FROM departamento WHERE iddepartamento = ?";
 			pstmt = con.prepareStatement(sql);
-			
-			pstmt.setString(1, d.getNombre());
-			pstmt.setInt(2, d.getIdDepartamento());
-			pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new BusinessException("Error al borrar");
-		} finally {
-			ConexionJdbc.cerrar(pstmt);
-		}	
-	}	
-	
-	@Override
-	public void borrar(Integer id) throws BusinessException{
-		// Inserta en la tabla departamento
-		
-		PreparedStatement pstmt = null;
-		String sql = null;
-		
-		// Obtenemos la conexión que ha creado la interfaz utilizando 
-		// la clase de utiles ConexionJdbc
-		
-		try {
-			Connection con = ConexionJdbc.getConnection();
-			sql = "delete from departamento where iddepartamento=?";
-			pstmt = con.prepareStatement(sql);
-		
 			pstmt.setInt(1, id);
-			pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
+			rs = pstmt.executeQuery();
+			if (rs.first()) {
+				result = new Departamento();
+				result.setIddepartamento(id);
+				result.setNombre(rs.getString("nombre"));
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			throw new BusinessException("Error al borrar");
+			throw new BusinessException("ERROR AL BUSCAR POR ID");
 		} finally {
 			ConexionJdbc.cerrar(pstmt);
-		}	
-	}	
-	
-	@Override
-	public void borrar(Departamento d) throws BusinessException{
-		borrar(d.getIdDepartamento());
+		}
+		return result;
+
 	}
 	
 	@Override
-	public Departamento buscarPorId(Integer id) throws BusinessException{
-		// Inserta en la tabla departamento
-		
+	public List<Departamento> buscarTodos() throws BusinessException {
 		PreparedStatement pstmt = null;
 		String sql = null;
-		
-		// Obtenemos la conexión que ha creado la interfaz utilizando 
-		// la clase de utiles ConexionJdbc
-		
+		ResultSet rs = null;
+		List<Departamento> result = new ArrayList<Departamento>();
+
 		try {
 			Connection con = ConexionJdbc.getConnection();
-			sql = "delete from departamento where iddepartamento=?";
+
+			sql = "SELECT * FROM departamento";
 			pstmt = con.prepareStatement(sql);
-		
-			pstmt.setInt(1, id);
-			pstmt.executeUpdate();
-			
-			
-		} catch (SQLException e) {
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				Departamento d = new Departamento();
+				d.setIddepartamento(rs.getInt("iddepartamento"));
+				d.setNombre(rs.getString("nombre"));
+				result.add(d);
+			}
+
+		} catch (Exception e) {
 			e.printStackTrace();
-			throw new BusinessException("Error al borrar");
+			throw new BusinessException("ERROR AL BUSCAR TODOS");
 		} finally {
 			ConexionJdbc.cerrar(pstmt);
-		}	
+		}
+		return result;
+
 	}
+
 }

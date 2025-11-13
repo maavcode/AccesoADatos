@@ -14,7 +14,6 @@
     <fullyQualifiedTypeName name="java.lang.Object"/>
     <fullyQualifiedTypeName name="java.io.FileWriter"/>
     <fullyQualifiedTypeName name="org.json.simple.JSONObject"/>
-    <fullyQualifiedTypeName name="java.lang.String"/>
     <fullyQualifiedTypeName name="pojo.FootballPlayer"/>
     <fullyQualifiedTypeName name="java.util.Arrays"/>
     <fullyQualifiedTypeName name="java.util.Properties"/>
@@ -24,14 +23,20 @@
     <fullyQualifiedTypeName name="java.lang.reflect.Array"/>
     <fullyQualifiedTypeName name="com.mongodb.client.MongoCollection"/>
     <fullyQualifiedTypeName name="com.mongodb.client.MongoCursor"/>
-    <fullyQualifiedTypeName name="java.util.List"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="practica.ejercicio1"/>
     <fullyQualifiedTypeName name="java.lang.Override"/>
-    <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.awt.Insets"/>
-    <fullyQualifiedTypeName name="excepciones.BusinessException"/>
-    <fullyQualifiedTypeName name="jdbc.ConexionJdbc"/>
     <fullyQualifiedTypeName name="pojo.Departamento"/>
     <fullyQualifiedTypeName name="dao.DaoDepartamento"/>
+    <fullyQualifiedTypeName name="java.beans.Statement"/>
+    <fullyQualifiedTypeName name="java.sql.Statement"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="java.lang.String"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="java.sql.SQLException"/>
+    <fullyQualifiedTypeName name="jdbc.ConexionJdbc"/>
+    <fullyQualifiedTypeName name="excepciones.BusinessException"/>
 </qualifiedTypeNameHistroy>

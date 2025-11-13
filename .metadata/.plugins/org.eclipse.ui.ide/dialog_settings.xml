@@ -15,6 +15,7 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\windows10\Desktop\UD2_MVC_INVENTARIO"/>
 			<item value="C:\Users\windows10\Documents\Clase\AccesoADatos\UtilesMaven"/>
 			<item value="C:\Users\windows10\Documents\Clase\AccesoADatos\UD1_Practica_Ampliacion"/>
 			<item value="C:\Users\windows10\Documents\Clase\AccesoADatos\Practica_Concesionario"/>

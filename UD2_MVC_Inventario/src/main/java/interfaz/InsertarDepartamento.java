@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 import dao.DaoDepartamento;
 import jdbc.ConexionJdbc;
-import pojo.Departamento;
+import pojos.Departamento;
 
 public class InsertarDepartamento {
 	public static void main(String[]args) {
