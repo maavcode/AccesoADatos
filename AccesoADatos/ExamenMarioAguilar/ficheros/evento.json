@@ -1,0 +1,182 @@
+[
+  {
+    "nombre_evento": "Festival de Teatro Clásico",
+    "fecha_evento": "2025-01-15",
+    "lugar_realizacion": {
+      "poblacion": "Sagunto",
+      "lugar": "Plaza Mayor, 12"
+    },
+    "tipo_evento": ["teatro", "clásico"],
+    "aforo": 350
+  },
+  {
+    "nombre_evento": "Concierto de Jazz Mediterráneo",
+    "fecha_evento": "2025-02-03",
+    "lugar_realizacion": {
+      "poblacion": "Gandía",
+      "lugar": "Avenida República Argentina, 45"
+    },
+    "tipo_evento": ["música", "jazz"],
+    "aforo": 500
+  },
+  {
+    "nombre_evento": "Exposición de Arte Contemporáneo",
+    "fecha_evento": "2025-02-20",
+    "lugar_realizacion": {
+      "poblacion": "Xàtiva",
+      "lugar": "Carrer Montcada, 8"
+    },
+    "tipo_evento": ["exposición", "arte"],
+    "aforo": 200
+  },
+  {
+    "nombre_evento": "Cine al Aire Libre",
+    "fecha_evento": "2025-03-10",
+    "lugar_realizacion": {
+      "poblacion": "Alzira",
+      "lugar": "Parque de la Alquenencia"
+    },
+    "tipo_evento": ["cine", "familiar"],
+    "aforo": 800
+  },
+  {
+    "nombre_evento": "Festival de Danza Folclórica",
+    "fecha_evento": "2025-03-25",
+    "lugar_realizacion": {
+      "poblacion": "Ontinyent",
+      "lugar": "Plaza de la Vila"
+    },
+    "tipo_evento": ["danza", "folclore"],
+    "aforo": 600
+  },
+  {
+    "nombre_evento": "Teatro Infantil: Cuentos Mágicos",
+    "fecha_evento": "2025-04-05",
+    "lugar_realizacion": {
+      "poblacion": "Requena",
+      "lugar": "Calle San Nicolás, 14"
+    },
+    "tipo_evento": ["teatro", "infantil"],
+    "aforo": 250
+  },
+  {
+    "nombre_evento": "Ruta Literaria por Blasco Ibáñez",
+    "fecha_evento": "2025-04-18",
+    "lugar_realizacion": {
+      "poblacion": "Sueca",
+      "lugar": "Casa de la Cultura"
+    },
+    "tipo_evento": ["literatura", "historia"],
+    "aforo": 150
+  },
+  {
+    "nombre_evento": "Festival de Música Indie",
+    "fecha_evento": "2025-05-02",
+    "lugar_realizacion": {
+      "poblacion": "Torrent",
+      "lugar": "Auditorio Municipal"
+    },
+    "tipo_evento": ["música", "indie"],
+    "aforo": 700
+  },
+  {
+    "nombre_evento": "Comedia Valenciana: Humor en Fallas",
+    "fecha_evento": "2025-05-15",
+    "lugar_realizacion": {
+      "poblacion": "Paterna",
+      "lugar": "Teatro Capri"
+    },
+    "tipo_evento": ["teatro", "comedia"],
+    "aforo": 400
+  },
+  {
+    "nombre_evento": "Festival de Cortometrajes",
+    "fecha_evento": "2025-06-01",
+    "lugar_realizacion": {
+      "poblacion": "Buñol",
+      "lugar": "Cine Municipal"
+    },
+    "tipo_evento": ["cine", "cultura"],
+    "aforo": 300
+  },
+  {
+    "nombre_evento": "Concierto de Música Clásica",
+    "fecha_evento": "2025-06-20",
+    "lugar_realizacion": {
+      "poblacion": "Cullera",
+      "lugar": "Castillo de Cullera"
+    },
+    "tipo_evento": ["música", "clásica"],
+    "aforo": 450
+  },
+  {
+    "nombre_evento": "Festival Infantil de Marionetas",
+    "fecha_evento": "2025-07-05",
+    "lugar_realizacion": {
+      "poblacion": "Carcaixent",
+      "lugar": "Plaza del Mercado"
+    },
+    "tipo_evento": ["infantil", "teatro"],
+    "aforo": 300
+  },
+  {
+    "nombre_evento": "Noche de Flamenco",
+    "fecha_evento": "2025-07-18",
+    "lugar_realizacion": {
+      "poblacion": "Manises",
+      "lugar": "Centro Cultural"
+    },
+    "tipo_evento": ["música", "flamenco"],
+    "aforo": 350
+  },
+  {
+    "nombre_evento": "Festival de Música Electrónica",
+    "fecha_evento": "2025-08-02",
+    "lugar_realizacion": {
+      "poblacion": "Cheste",
+      "lugar": "Circuito Ricardo Tormo"
+    },
+    "tipo_evento": ["música", "electrónica"],
+    "aforo": 2000
+  },
+  {
+    "nombre_evento": "Encuentro de Corales",
+    "fecha_evento": "2025-09-12",
+    "lugar_realizacion": {
+      "poblacion": "Llíria",
+      "lugar": "Iglesia de la Asunción"
+    },
+    "tipo_evento": ["música", "coral"],
+    "aforo": 250
+  },
+  {
+    "nombre_evento": "Exposición Cerámica Tradicional",
+    "fecha_evento": "2025-10-05",
+    "lugar_realizacion": {
+      "poblacion": "Manises",
+      "lugar": "Museo de la Cerámica"
+    },
+    "tipo_evento": ["exposición", "arte", "tradición"],
+    "aforo": 200
+  },
+  {
+    "nombre_evento": "Festival de Rock Mediterráneo",
+    "fecha_evento": "2025-10-20",
+    "lugar_realizacion": {
+      "poblacion": "Gandía",
+      "lugar": "Recinto Ferial"
+    },
+    "tipo_evento": ["música", "rock"],
+    "aforo": 1200
+  },
+  {
+    "nombre_evento": "Concierto Sinfónico de Otoño",
+    "fecha_evento": "2025-11-08",
+    "lugar_realizacion": {
+      "poblacion": "Gandía",
+      "lugar": "Palau Ducal dels Borja"
+    },
+    "tipo_evento": ["música", "clásica"],
+    "aforo": 600
+  }
+]

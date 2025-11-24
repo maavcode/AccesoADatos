@@ -1,0 +1,4 @@
+driverClassName=com.mysql.cj.jdbc.Driver
+url=jdbc:mysql://localhost:33060/diinventarioexamen?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
+username=root
+password=admin

@@ -1,0 +1,63 @@
+[
+  {
+    "nombre": "Gazpacho",
+    "tipo": "Sopa fr�a",
+    "ingredientes": [
+      {
+        "nombre": "Tomate",
+        "cantidad": "1 kg"
+      },
+      {
+        "nombre": "Pimiento verde",
+        "cantidad": "100 g"
+      }
+    ]
+  },
+
+  {
+    "nombre": "Tortilla espa�ola",
+    "tipo": "Primero",
+    "ingredientes": [
+      {
+        "nombre": "Patata",
+        "cantidad": "500 g"
+      },
+      {
+        "nombre": "Huevo",
+        "cantidad": "4 ud"
+      }
+    ]
+  },
+
+  {
+    "nombre": "Ensalada",
+    "tipo": "Entrante",
+    "ingredientes": [
+      {
+        "nombre": "Tomate",
+        "cantidad": "700 kg"
+      },
+      {
+        "nombre": "lechuga",
+        "cantidad": "100 g"
+      }
+    ]
+  }
+] 
+
+{ 
+    "nombre": "Bizcocho", 
+    "tipo": "postre", 
+        "ingredientes": [ 
+        { 
+            "nombre": "Harina", 
+            "cantidad": "1 kg" 
+        }, 
+        { 
+            "nombre": "Huevo", 
+            "cantidad": "5 ud" 
+        } 
+    ] 
+}] 
+
+  

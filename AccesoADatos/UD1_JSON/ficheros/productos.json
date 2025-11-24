@@ -1,0 +1,182 @@
+[
+    {
+        "nombre_producto": "Smartphone Samsung Galaxy S21",
+        "precio": 799.99,
+        "categorias": ["Electrónica", "Móviles"],
+        "stock": 100,
+        "ubicacion": {
+            "almacen": "Almacén 1",
+            "estanteria": "Estantería A",
+            "pasillo": "Pasillo 1"
+        },
+        "tipo_producto": "Electrónica"
+    },
+    {
+        "nombre_producto": "Aspiradora Dyson V11",
+        "precio": 599.99,
+        "categorias": ["Hogar", "Electrodomésticos"],
+        "stock": 50,
+        "ubicacion": {
+            "almacen": "Almacén 1",
+            "estanteria": "Estantería B",
+            "pasillo": "Pasillo 1"
+        },
+        "tipo_producto": "Hogar"
+    },
+    {
+        "nombre_producto": "Lego Star Wars Millennium Falcon",
+        "precio": 159.99,
+        "categorias": ["Juguetes", "Construcción"],
+        "stock": 200,
+        "ubicacion": {
+            "almacen": "Almacén 1",
+            "estanteria": "Estantería C",
+            "pasillo": "Pasillo 1"
+        },
+        "tipo_producto": "Juguetes"
+    },
+    {
+        "nombre_producto": "Camiseta Nike Dri-FIT",
+        "precio": 29.99,
+        "categorias": ["Ropa", "Deportes"],
+        "stock": 75,
+        "ubicacion": {
+            "almacen": "Almacén 2",
+            "estanteria": "Estantería D",
+            "pasillo": "Pasillo 2"
+        },
+        "tipo_producto": "Ropa"
+    },
+    {
+        "nombre_producto": "Balón de Fútbol Adidas",
+        "precio": 19.99,
+        "categorias": ["Deportes", "Fútbol"],
+        "stock": 150,
+        "ubicacion": {
+            "almacen": "Almacén 2",
+            "estanteria": "Estantería E",
+            "pasillo": "Pasillo 2"
+        },
+        "tipo_producto": "Deportes"
+    },
+    {
+        "nombre_producto": "Televisor LG OLED55CX",
+        "precio": 1299.99,
+        "categorias": ["Electrónica", "Televisores"],
+        "stock": 30,
+        "ubicacion": {
+            "almacen": "Almacén 3",
+            "estanteria": "Estantería F",
+            "pasillo": "Pasillo 3"
+        },
+        "tipo_producto": "Electrónica"
+    },
+    {
+        "nombre_producto": "Cafetera Nespresso Vertuo",
+        "precio": 149.99,
+        "categorias": ["Hogar", "Cocina"],
+        "stock": 120,
+        "ubicacion": {
+            "almacen": "Almacén 3",
+            "estanteria": "Estantería G",
+            "pasillo": "Pasillo 3"
+        },
+        "tipo_producto": "Hogar"
+    },
+    {
+        "nombre_producto": "Muñeca Barbie Dreamhouse",
+        "precio": 199.99,
+        "categorias": ["Juguetes", "Muñecas"],
+        "stock": 90,
+        "ubicacion": {
+            "almacen": "Almacén 3",
+            "estanteria": "Estantería H",
+            "pasillo": "Pasillo 3"
+        },
+        "tipo_producto": "Juguetes"
+    },
+    {
+        "nombre_producto": "Chaqueta The North Face",
+        "precio": 249.99,
+        "categorias": ["Ropa", "Outdoor"],
+        "stock": 60,
+        "ubicacion": {
+            "almacen": "Almacén 1",
+            "estanteria": "Estantería I",
+            "pasillo": "Pasillo 1"
+        },
+        "tipo_producto": "Ropa"
+    },
+    {
+        "nombre_producto": "Bicicleta de Montaña Trek",
+        "precio": 999.99,
+        "categorias": ["Deportes", "Ciclismo"],
+        "stock": 110,
+        "ubicacion": {
+            "almacen": "Almacén 2",
+            "estanteria": "Estantería J",
+            "pasillo": "Pasillo 2"
+        },
+        "tipo_producto": "Deportes"
+    },
+    {
+        "nombre_producto": "Auriculares Sony WH-1000XM4",
+        "precio": 349.99,
+        "categorias": ["Electrónica", "Audio"],
+        "stock": 80,
+        "ubicacion": {
+            "almacen": "Almacén 3",
+            "estanteria": "Estantería K",
+            "pasillo": "Pasillo 3"
+        },
+        "tipo_producto": "Electrónica"
+    },
+    {
+        "nombre_producto": "Robot de Cocina Thermomix",
+        "precio": 1199.99,
+        "categorias": ["Hogar", "Cocina"],
+        "stock": 140,
+        "ubicacion": {
+            "almacen": "Almacén 1",
+            "estanteria": "Estantería L",
+            "pasillo": "Pasillo 1"
+        },
+        "tipo_producto": "Hogar"
+    },
+    {
+        "nombre_producto": "Juego de Mesa Catan",
+        "precio": 49.99,
+        "categorias": ["Juguetes", "Juegos de Mesa"],
+        "stock": 40,
+        "ubicacion": {
+            "almacen": "Almacén 2",
+            "estanteria": "Estantería M",
+            "pasillo": "Pasillo 2"
+        },
+        "tipo_producto": "Juguetes"
+    },
+    {
+        "nombre_producto": "Pantalones Levi's 501",
+        "precio": 89.99,
+        "categorias": ["Ropa", "Jeans"],
+        "stock": 70,
+        "ubicacion": {
+            "almacen": "Almacén 3",
+            "estanteria": "Estantería N",
+            "pasillo": "Pasillo 3"
+        },
+        "tipo_producto": "Ropa"
+    },
+    {
+        "nombre_producto": "Zapatillas Nike Air Max",
+        "precio": 129.99,
+        "categorias": ["Deportes", "Calzado"],
+        "stock": 130,
+        "ubicacion": {
+            "almacen": "Almacén 1",
+            "estanteria": "Estantería O",
+            "pasillo": "Pasillo 1"
+        },
+        "tipo_producto": "Deportes"
+    }
+]
