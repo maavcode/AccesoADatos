@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 
@@ -22,69 +23,19 @@ public class Equipo implements Serializable{
 	private String nomeq;
 	private String director;
 	
+	// Equipo - Ciclista (1-N)
 	@OneToMany(mappedBy = "equipo", fetch=FetchType.LAZY) 
 	// GUARDA LA LISTA DE CICLISTAS, CUALES? LOS CICLISTAS QUE TENGAN GUARDADO EL MISMO EQUIPO (equipo) 
 	// GUARDA TAMBIEN EL METODO FETCH, EN ESTE CASO CREARA SOLO LAS LISTAS QUE USARAS
 	private List<Ciclista> ciclistas = new ArrayList<Ciclista>();
 	
-	public Equipo() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	public Equipo(String nomeq, String director) {
-		super();
-		this.nomeq = nomeq;
-		this.director = director;
-	}
-
-	public String getNomeq() {
-		return nomeq;
-	}
-
-	public void setNomeq(String nomeq) {
-		this.nomeq = nomeq;
-	}
-
-	public String getDirector() {
-		return director;
-	}
-
-	public void setDirector(String director) {
-		this.director = director;
-	}
-
-	public List<Ciclista> getCiclistas() {
-		return ciclistas;
-	}
-
-	public void setCiclistas(List<Ciclista> ciclistas) {
-		this.ciclistas = ciclistas;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(ciclistas, director, nomeq);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Equipo other = (Equipo) obj;
-		return Objects.equals(ciclistas, other.ciclistas) && Objects.equals(director, other.director)
-				&& Objects.equals(nomeq, other.nomeq);
-	}
-
-	@Override
-	public String toString() {
-		return "Equipo [nomeq=" + nomeq + ", director=" + director + ", ciclistas=" + ciclistas + "]";
-	}
+	// Equipo - Representante (1-1)
+	@OneToOne(mappedBy = "equipo")
+	private Representante representante;
 	
+	// Equipo - Coche (1-1)
+	@OneToOne(mappedBy = "equipo")
+	private Coche coche;
 	
 	
 }
