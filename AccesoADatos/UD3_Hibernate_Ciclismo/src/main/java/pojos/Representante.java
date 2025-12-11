@@ -22,4 +22,42 @@ public class Representante implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "nom_eq")
 	private Equipo equipo;
+
+	public Representante() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Representante(Integer id, String nombre, Equipo equipo) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.equipo = equipo;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public Equipo getEquipo() {
+		return equipo;
+	}
+
+	public void setEquipo(Equipo equipo) {
+		this.equipo = equipo;
+	}
+	
+	
 }

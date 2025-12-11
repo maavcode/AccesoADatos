@@ -2,6 +2,7 @@ package pojos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -31,4 +32,68 @@ public class Premios {
 			) 
 	private List<Ciclista> ciclistas=new ArrayList<Ciclista>();
 
+	public Premios() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public Premios(Integer codigo, String descripcion, Integer cantidad, List<Ciclista> ciclistas) {
+		super();
+		this.codigo = codigo;
+		this.descripcion = descripcion;
+		this.cantidad = cantidad;
+		this.ciclistas = ciclistas;
+	}
+
+	public Integer getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(Integer codigo) {
+		this.codigo = codigo;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public Integer getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(Integer cantidad) {
+		this.cantidad = cantidad;
+	}
+
+	public List<Ciclista> getCiclistas() {
+		return ciclistas;
+	}
+
+	public void setCiclistas(List<Ciclista> ciclistas) {
+		this.ciclistas = ciclistas;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(cantidad, ciclistas, codigo, descripcion);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Premios other = (Premios) obj;
+		return Objects.equals(cantidad, other.cantidad) && Objects.equals(ciclistas, other.ciclistas)
+				&& Objects.equals(codigo, other.codigo) && Objects.equals(descripcion, other.descripcion);
+	}
+
+	
 }
