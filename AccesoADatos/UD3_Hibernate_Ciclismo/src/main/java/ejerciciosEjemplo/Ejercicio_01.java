@@ -25,19 +25,19 @@ public class Ejercicio_01 {
 		
 		sesion.getTransaction().commit();
 		
-		// ELIMINAR EQUIPO
-		sesion.beginTransaction(); // Inicia la sesion
-		
-		// Recogo el equipo con ID = "dam55"
-		Equipo eq = sesion.get(Equipo.class, "dam55");
-		// Elimino el equipo recogido
-		sesion.delete(eq); // <-------
-		
-//		System.out.println("Equipo " + eq.getNomeq() + " eliminado");
-		
-		sesion.getTransaction().commit(); // Termina la sesion
-		
-		factory.close();
+//		// ELIMINAR EQUIPO
+//		sesion.beginTransaction(); // Inicia la sesion
+//		
+//		// Recogo el equipo con ID = "dam55"
+//		Equipo eq = sesion.get(Equipo.class, "dam55");
+//		// Elimino el equipo recogido
+//		sesion.delete(eq); // <-------
+//		
+////		System.out.println("Equipo " + eq.getNomeq() + " eliminado");
+//		
+//		sesion.getTransaction().commit(); // Termina la sesion
+//		
+//		factory.close();
 		
 	}
 }

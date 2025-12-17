@@ -37,6 +37,8 @@ public class Ejercicio_01 {
 		}
 		
 		sesion.getTransaction().commit();
+		
+		factory.close();
 	}
 
 }

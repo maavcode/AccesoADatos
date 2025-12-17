@@ -16,7 +16,7 @@ import javax.persistence.Table;
 @Table(name="coche")
 public class Coche implements Serializable{
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // CHATGPT ME AYUDO
 	private Integer cod;
 	private Integer km;
 	private String matricula;
