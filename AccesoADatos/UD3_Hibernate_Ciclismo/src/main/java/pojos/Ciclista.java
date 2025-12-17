@@ -22,7 +22,7 @@ import javax.persistence.Table;
 public class Ciclista implements Serializable{ // Para que el POJO sea serializable
 	// ATRIBUTOS DE LA TABLA
 	@Id // Dorsal es id
-	@GeneratedValue(strategy=GenerationType.AUTO) // Dorsal es autoincremental
+	@GeneratedValue(strategy=GenerationType.IDENTITY) // Dorsal es autoincremental
 	private Integer dorsal;
 	private String nombre;
 	private Date nacimiento;
