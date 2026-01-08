@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Generated 26 ene. 2021 7:44:14 by Hibernate Tools 5.0.6.Final --><!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="musica" dynamic-insert="false" dynamic-update="false" mutable="true" name="Pojos.Artista" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="artista">
+        <id name="dni" type="string">
+            <column length="10" name="dni"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="nombre" optimistic-lock="true" type="string" unique="false">
+            <column length="30" name="nombre" not-null="true"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="perteneces" optimistic-lock="true" sort="unsorted" table="pertenece">
+            <key on-delete="noaction">
+                <column length="10" name="dni" not-null="true"/>
+            </key>
+            <one-to-many class="pojosEsther.Pertenece" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>
