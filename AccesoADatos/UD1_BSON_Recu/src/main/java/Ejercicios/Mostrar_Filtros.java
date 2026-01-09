@@ -1,5 +1,6 @@
 package Ejercicios;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.text.html.HTMLEditorKit.Parser;
@@ -13,6 +14,7 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Filters;
+import com.mongodb.client.model.Sorts;
 
 public class Mostrar_Filtros {
 	public static void main(String[] args) {
@@ -499,23 +501,110 @@ public class Mostrar_Filtros {
 
 	public static void Ejercicio20(MongoDatabase dbBiblioteca) {
 		System.out.println("--- Ejercicio 20: Libros de Planeta ordenados por año de edición ---");
+		// Recogo las colecciones necesarias
 		MongoCollection colLibros = dbBiblioteca.getCollection("Libros");
-		MongoCollection colPrestamos = dbBiblioteca.getCollection("Prestamos");
-		MongoCollection colSocios = dbBiblioteca.getCollection("Socios");
+		
+		// Creo un cursor que recoge todos los libros y los ordeno con .sort(Sorts) por año de edicion
+		MongoCursor<Document> cursorLibros = colLibros.find().sort(Sorts.descending("año_publicacion")).iterator();
+		
+		// Recorro el cursor que contiene libros
+		while (cursorLibros.hasNext()) {
+			Document docLibro = (Document) cursorLibros.next();
+			
+			// Recogo el autor del libro y muestro lo pedido 
+			Document docAutor = (Document) docLibro.get("autor");
+			System.out.println("Titulo: " + docLibro.get("titulo") + " | Autor: " + docAutor.get("nombre") + " " + docAutor.get("apellido") + " | Año de edicion: " + docLibro.get("año_publicacion"));
+			
+		}
 	}
 
 	public static void Ejercicio21(MongoDatabase dbBiblioteca) {
 		System.out.println("--- Ejercicio 21: Título y editorial de libros ordenados por páginas ---");
+		// Recogo las colecciones necesarias
 		MongoCollection colLibros = dbBiblioteca.getCollection("Libros");
-		MongoCollection colPrestamos = dbBiblioteca.getCollection("Prestamos");
-		MongoCollection colSocios = dbBiblioteca.getCollection("Socios");
-	}
 
+		// Recogo en un cursor todos los libros y lo ordeno por paginas
+		MongoCursor<Document> curosrLibros = colLibros.find().sort(Sorts.descending("páginas")).iterator();
+	
+		// Recorro el cursor que contiene los libros
+		while (curosrLibros.hasNext()) {
+			Document docLibro = (Document) curosrLibros.next();
+			
+			// Muestro lo pedido
+			System.out.println("Titulo: " + docLibro.get("titulo") + " | Editorial: " + docLibro.get("editorial") + " | Num. paginas: " + docLibro.get("páginas"));
+			
+		}
+	}
+	
+	// ESTA BIEN, LO QUE NO LO ESTA ES EL JSON
 	public static void Ejercicio22(MongoDatabase dbBiblioteca) {
 		System.out.println("--- Ejercicio 22: Libros que tienen algún préstamo ---");
+		// Recogo las colecciones necesarias
 		MongoCollection colLibros = dbBiblioteca.getCollection("Libros");
 		MongoCollection colPrestamos = dbBiblioteca.getCollection("Prestamos");
-		MongoCollection colSocios = dbBiblioteca.getCollection("Socios");
+		
+		// EJERCICIO HECHO POR MI MIRANDO EL DE ESTHER
+		
+		// Recogo en un cursor los libros prestados
+		MongoCursor<Document> cursorPrestamosSol = colPrestamos.find().iterator();
+		
+		// Recorro el cursor de libros
+		while (cursorPrestamosSol.hasNext()) {
+			Document docPrestamo = (Document) cursorPrestamosSol.next();
+			// Creo un ArrayList que tendra lis objetos del libro
+			ArrayList librosPrestados = (ArrayList) docPrestamo.get("libro");
+			
+			// Recorro el array de libros prestados
+			for (Object objLibro : librosPrestados) {
+				Document docLibro = (Document) objLibro;
+				// Guardo el isbn del libro prestado y lo muestro
+				String isbnPrestado = docLibro.get("isbn").toString();
+				System.out.println("isbn: " + isbnPrestado);
+				
+				// Creo un filtro para encontrar el libro prestado
+				Bson bsonFilterPrestado = Filters.eq("isbn", isbnPrestado);
+				// Recogo el libro prestado y lo muestro
+				Document docLibroPrestado = (Document) colLibros.find(bsonFilterPrestado).first();
+				System.out.println(docLibroPrestado.toJson());
+			}
+			
+		}
+		
+		// EJERCICIO HECHO POR MI SIN MIRAR
+		
+		// Creo un ArrayList para guardar los libros que estan prestados
+		ArrayList <String> librosPrestados = new ArrayList<String>();
+		
+		// Recogo en un cursor los prestamos
+		MongoCursor<Document> cursorPrestamos = colPrestamos.find().iterator();
+		//Recorro el cursor de prestamos
+		while (cursorPrestamos.hasNext()) {
+			Document docPrestamo = (Document) cursorPrestamos.next();
+		
+			// Recogo en una lista los libros del prestamo ya que este es un documento
+			List<Document> libros = (List<Document>) docPrestamo.get("libro");
+			// Recorro la lista de libros
+			for (Document docLibro : libros) {
+				if (!librosPrestados.contains(docLibro.get("isbn"))) {
+					librosPrestados.add(docLibro.get("isbn").toString());
+				}
+			}
+			
+		}
+		
+		System.out.println("Cantidad de libros prestados: " + librosPrestados.size());
+		// Recorro la lista de libros prestados
+		for (int i = 0; i < librosPrestados.size(); i++) {
+			
+			// Filtro que busca el libro con isbn correcto
+			Bson bsonFilterLibroPrestado = Filters.eq("isbn",librosPrestados.get(i));
+			
+			// Recogo el libro prestado que cumple con el filtro y muestro lo pedido
+			Document docLibroPrestado = (Document) colLibros.find(bsonFilterLibroPrestado).first();
+			System.out.println("Titulo: " + docLibroPrestado.get("titulo") + " | ISBN: " + docLibroPrestado.get("isbn"));
+
+		}
+		
 	}
 
 }
