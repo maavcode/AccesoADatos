@@ -30,7 +30,13 @@ public class EjercicioM {
 			// Recogo el grupo 
 			System.out.println("Introduce el nombre del grupo: ");
 			String nombre = sc.nextLine();
-			Grupo grupoSeleccionado = daoGrupo.buscarPorNombre(nombre);
+			List<Object[]> listaArtistas = daoGrupo.buscarNombreYFuncionArtistaPorGrupo(nombre);
+			
+			for (Object[] object : listaArtistas) {
+				System.out.println("Nombre: " + object[0]);
+				System.out.println("Funcion: " + object[1]);
+				System.out.println("");
+			}
 		
 			
 		} catch (Exception e) {

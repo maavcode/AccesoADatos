@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.hibernate.Session;
@@ -45,5 +46,4 @@ public class DaoArtista extends DaoGenericoHibernate<Artista, String>{
 		return result;
 	}
 	
-	// 
 }

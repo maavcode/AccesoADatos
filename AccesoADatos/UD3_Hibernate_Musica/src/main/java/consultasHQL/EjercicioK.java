@@ -19,9 +19,11 @@ public class EjercicioK {
 		try {
 			// Abro la sesion // SIEMPRE
 			UtilesHibernate.openSession();
+			
 			// Recogo los daos correspondientes
 			DaoClub daoClub = new DaoClub();
 			DaoGrupo daoGrupo = new DaoGrupo();
+			/* NO HACER, TODO ESTO LO HACE EL DAO
 			// Recogo los grupos y los clubes
 			List<Grupo> listaGrupos = daoGrupo.buscarTodos();
 			List<Club> listaClub = daoClub.buscarTodos();
@@ -29,12 +31,18 @@ public class EjercicioK {
 			List<Grupo> listaGruposConCLub = new ArrayList<Grupo>();
 			for (Club club : listaClub) {
 				listaGruposConCLub.add(club.getGrupo());
-			}
+			}   
 			// Recorro la lista de grupos y me aseguro que no este en la lista de grupos con club
 			for (Grupo grupo : listaGrupos) {
 				if (!listaGruposConCLub.contains(grupo)) {
 					System.out.println("Grupo: " + grupo.getNombre());
 				}
+			}
+			*/
+			List<String> grupos = daoGrupo.buscarGruposSinClub();
+			
+			for (String string : grupos) {
+				System.out.println(string);
 			}
 			
 		} catch (Exception e) {
