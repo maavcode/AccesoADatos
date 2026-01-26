@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Crear nueva direccion</title>
+ </head>
+
+<body>
+    <h1>Crear nueva direccion</h1> 
+    <br/>
+    <br/>
+    <form th:action="@{/clientes/{idCliente}/direcciones/save/(idCliente=${clientedto.idCliente})}" th:object="${direcciondto}" method="POST">
+			<select name="direccionId">
+				<option th:each="direcciondto : ${lista}" 
+					th:value="${direcciondto.idDireccion}" 
+					th:text="${direcciondto.descripcion}">Descripcion</option>
+			</select>
+        <input type="submit" th:value="Crear" /> </form>
+    <br/>
+    <br/>    
+    <a th:href="@{/clientes/{idCliente}/direcciones/(idCliente=${clientedto.idCliente})}">Volver a la lista de direcciones</a>
+</html>

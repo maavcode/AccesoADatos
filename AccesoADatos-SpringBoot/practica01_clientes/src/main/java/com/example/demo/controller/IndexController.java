@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.demo.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +15,7 @@ public class IndexController {
 		return "Hola mundo";
 	
 	}	
-	 
+	
 	@GetMapping(value="/helloModel")
 	public String printHello(Model model) {
 		
