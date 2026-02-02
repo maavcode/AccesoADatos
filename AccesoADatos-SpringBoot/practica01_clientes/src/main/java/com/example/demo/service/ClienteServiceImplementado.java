@@ -2,6 +2,7 @@ package com.example.demo.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,15 +40,19 @@ public class ClienteServiceImplementado implements ClienteService {
 
 	@Override
 	public ClienteDTO getClienteById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Optional<Cliente> cliente = clienteRepository.findById(id);
+		if (cliente.isPresent()) {
+			return ClienteDTO.convertToDTO(cliente.get());
+		} else {
+			return null;
+		}
 	}
 
 	
 
 	@Override
 	public void deleteClient(Long id) {
-		// TODO Auto-generated method stub
+		clienteRepository.deleteById(id);
 		
 	}
 	
