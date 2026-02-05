@@ -68,14 +68,19 @@ public class ClienteController {
 		clienteService.deleteClient(idCliente);
 		return "redirect:/clientes";
 	}
-	
+	// Recoge informacion para update
 	@RequestMapping("/clientes/update/{idCliente}")
 	public String actualizarCliente(@PathVariable Long idCliente, Model model){
 		buscarCliente= clienteService.getClienteById(idCliente);
 		model.addAttribute("clientedto", buscarCliente);
 		model.addAttribute("add", false);
-		
-		return "clienteform";
+		return "clienteformedit";
+	}
+	// cuando le das a actualizar te lleva a clientes
+	@PostMapping("/clientes/saveupdate/{idCliente}")
+	public String guardar_actualizarCliente(@PathVariable Long idCliente, @ModelAttribute ClienteDTO clientedto) {
+		clienteService.updateCliente(clientedto);
+		return "redirect:/clientes";
 	}
 	
 }
