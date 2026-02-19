@@ -10,7 +10,9 @@ import org.hibernate.query.Query;
 
 import hibernate.UtilesHibernate;
 import pojosEsther.Artista;
+import pojosEsther.Club;
 import pojosEsther.Grupo;
+import pojosEsther.Pertenece;
 
 public class DaoGrupo extends DaoGenericoHibernate<Grupo, String> {
 	private final static Logger LOGGER = Logger.getLogger(DaoGrupo.class.getName());
@@ -114,38 +116,89 @@ public class DaoGrupo extends DaoGenericoHibernate<Grupo, String> {
 
 		return result;
 	}
-	
+
 	// BUSCAR DISCOS DE UN GRUPO EN UN AÑO | EjercicioO
-		public List<String> buscarDiscosAñoPorGrupo(String grupo, Integer fecha) {
+	public List<String> buscarDiscosAñoPorGrupo(String grupo, Integer fecha) {
 
-			List<String> result = null;
-			Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
+		List<String> result = null;
+		Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
 
+		try {
+			// Empieza la transaccion // SIEMPRE
+			s.beginTransaction();
+
+			// Creo la Query HQL
+			String hql = "select d.nombre from Grupo g join g.discos d where g.nombre=:grupo and year(d.fecha)=:fecha";
+			Query q = s.createQuery(hql);
+			q.setParameter("grupo", grupo); // nom es la etiqueta, se puede poner ? y luego donde esta o una etiqueta
+			q.setParameter("fecha", fecha);
+
+			// El resultado de la Query se inserta en result
+			result = q.getResultList();
+
+			s.getTransaction().commit(); // SIEMPRE
+
+		} catch (ConstraintViolationException cve) { // SIEMPRE
+			// Si dio error la transaccion, deshace los cambios
 			try {
-				// Empieza la transaccion // SIEMPRE
-				s.beginTransaction();
+				s.getTransaction().rollback();
+				;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
-				// Creo la Query HQL
-				String hql = "select d.nombre from Grupo g join g.discos d where g.nombre=:grupo and year(d.fecha)=:fecha";
-				Query q = s.createQuery(hql);
-				q.setParameter("grupo", grupo); // nom es la etiqueta, se puede poner ? y luego donde esta o una etiqueta
-				q.setParameter("fecha", fecha);
+		return result;
+	}
 
-				// El resultado de la Query se inserta en result
-				result = q.getResultList();
+	// RESTRICCIÓN PARA QUE UN GRUPO NO TENGA MÁS DE 8 INTEGRANTES | EJERCICIO
+	// RESTRICCIONES - C
+	public void addIntegranteAGrupo(Grupo grupo, Artista nuevoIntegrante) throws Exception {
 
-				s.getTransaction().commit(); // SIEMPRE
+		// Número actual de integrantes (a través de la tabla Pertenece)
+		int integrantesActuales = grupo.getPerteneces().size();
 
-			} catch (ConstraintViolationException cve) { // SIEMPRE
-				// Si dio error la transaccion, deshace los cambios
-				try {
-					s.getTransaction().rollback();
-					;
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+		// Comprobar límite de 8 integrantes
+		if (integrantesActuales >= 8) {
+			throw new Exception("El grupo no puede tener más de 8 integrantes");
+		}
+
+		// Si no supera el límite, se crea la relación en Pertenece
+		Pertenece p = new Pertenece();
+		p.setGrupo(grupo);
+		p.setArtista(nuevoIntegrante);
+
+		grupo.getPerteneces().add(p);
+	}
+
+	public void addClubAGrupo(Grupo grupo, Club club) throws Exception {
+		
+		Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
+
+		try {
+			// Empieza la transaccion // SIEMPRE
+			s.beginTransaction();
+
+			int clubsGrupo = grupo.getClubs().size();
+
+			// Comprobar límite de 8 integrantes
+			if (clubsGrupo >= 3) {
+				throw new Exception("El grupo no puede tener más de 3 clubes");
+			} else {
+				grupo.getClubs().add(club);
+				s.update(grupo);
 			}
 
-			return result;
+			s.getTransaction().commit(); // SIEMPRE
+
+		} catch (ConstraintViolationException cve) { // SIEMPRE
+			// Si dio error la transaccion, deshace los cambios
+			try {
+				s.getTransaction().rollback();
+				;
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
+	}
 }

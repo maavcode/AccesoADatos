@@ -46,4 +46,36 @@ public class DaoClub extends DaoGenericoHibernate<Club, String>{
 
 			return result;
 		}
+		
+		public Club buscarPorNombre(String nombre) {
+			Club result = null;
+			// Obtenemos la sesion // SIEMPRE
+			Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
+
+			try {
+				// Empieza la transaccion // SIEMPRE
+				s.beginTransaction();
+
+				// Creo la Query HQL
+				String hql = "from Club c where c.nombre =: nom";
+				Query q = s.createQuery(hql);
+				q.setParameter("nom", nombre); 
+
+				// El resultado de la Query se inserta en result
+				result = (Club) q.uniqueResult();
+
+				s.getTransaction().commit(); // SIEMPRE
+
+			} catch (ConstraintViolationException cve) { // SIEMPRE
+				// Si dio error la transaccion, deshace los cambios
+				try {
+					s.getTransaction().rollback();
+					;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+
+			return result;
+		}
 }
