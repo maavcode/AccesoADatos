@@ -153,52 +153,81 @@ public class DaoGrupo extends DaoGenericoHibernate<Grupo, String> {
 
 	// RESTRICCIÓN PARA QUE UN GRUPO NO TENGA MÁS DE 8 INTEGRANTES | EJERCICIO
 	// RESTRICCIONES - C
-	public void addIntegranteAGrupo(Grupo grupo, Artista nuevoIntegrante) throws Exception {
+	public void addArtistaAGrupo(String nomGrupo, String nomArtista, String funcion) throws Exception {
 
-		// Número actual de integrantes (a través de la tabla Pertenece)
-		int integrantesActuales = grupo.getPerteneces().size();
-
-		// Comprobar límite de 8 integrantes
-		if (integrantesActuales >= 8) {
-			throw new Exception("El grupo no puede tener más de 8 integrantes");
-		}
-
-		// Si no supera el límite, se crea la relación en Pertenece
-		Pertenece p = new Pertenece();
-		p.setGrupo(grupo);
-		p.setArtista(nuevoIntegrante);
-
-		grupo.getPerteneces().add(p);
-	}
-
-	public void addClubAGrupo(Grupo grupo, Club club) throws Exception {
-		
 		Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
 
 		try {
-			// Empieza la transaccion // SIEMPRE
+			s.beginTransaction();
+
+			// Creo la Query HQL
+			String hqlGrupo = "select g from Grupo g where g.nombre=:nom";
+			Query qGrupo = s.createQuery(hqlGrupo);
+			qGrupo.setParameter("nom", nomGrupo);
+			
+			Grupo grupo = (Grupo) qGrupo.uniqueResult();
+			
+			String hqlArtista = "select a from Artista a where a.nombre=:nom";
+			Query qArtista = s.createQuery(hqlArtista);
+			qArtista.setParameter("nom", nomArtista);
+			
+			Artista artista = (Artista) qArtista.uniqueResult();
+
+			// Número de grupos a los que pertenece el artista
+			int gruposArtista = artista.getPerteneces().size();
+
+			// Restricción C: máximo 8 grupos
+			if (gruposArtista >= 8) {
+				throw new Exception("El artista no puede pertenecer a más de 8 grupos");
+			}
+
+			// Crear la relación
+			Pertenece p = new Pertenece();
+
+			// Añadir a las colecciones
+			grupo.getPerteneces().add(p);
+			artista.getPerteneces().add(p);
+
+			// Guardar la relación
+			s.save(p);
+
+			s.getTransaction().commit();
+
+		} catch (Exception e) {
+			try {
+				s.getTransaction().rollback();
+			} catch (Exception ex) {
+			}
+			throw e;
+		}
+	}
+
+	public void addClubAGrupo(Grupo grupo, Club club) throws Exception {
+
+		Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
+
+		try {
 			s.beginTransaction();
 
 			int clubsGrupo = grupo.getClubs().size();
 
-			// Comprobar límite de 8 integrantes
+			// Restricción B: máximo 3 clubes
 			if (clubsGrupo >= 3) {
 				throw new Exception("El grupo no puede tener más de 3 clubes");
-			} else {
-				grupo.getClubs().add(club);
-				s.update(grupo);
 			}
 
-			s.getTransaction().commit(); // SIEMPRE
+			// Añadir el club
+			grupo.getClubs().add(club);
 
-		} catch (ConstraintViolationException cve) { // SIEMPRE
-			// Si dio error la transaccion, deshace los cambios
-			try {
-				s.getTransaction().rollback();
-				;
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			// Actualizar el grupo
+			s.update(grupo);
+
+			s.getTransaction().commit();
+
+		} catch (Exception e) {
+			s.getTransaction().rollback();
+			e.printStackTrace();
 		}
 	}
+
 }

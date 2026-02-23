@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2 th:text="${modo == 'nuevo' ? 'Nuevo Equipo' : 'Editar Equipo'}"></h2>
+
+<form th:object="${equipo}"
+      th:action="${modo == 'nuevo'} 
+                 ? @{/equipos/save} 
+                 : @{/equipos/save/{n}(n=${equipo.nombre})}"
+      method="post">
+
+    Nombre:
+    <input th:field="*{nombre}" th:readonly="${modo == 'editar'}"/>
+    <br/>
+
+    Ciudad:
+    <input th:field="*{ciudad}"/>
+    <br/>
+
+    Conferencia:
+    <input th:field="*{conferencia}"/>
+    <br/>
+
+    División:
+    <input th:field="*{division}"/>
+    <br/><br/>
+
+    <button type="submit">Guardar</button>
+</form>
+
+<a th:href="@{/equipos}">Volver</a>
+
+</body>
+</html>

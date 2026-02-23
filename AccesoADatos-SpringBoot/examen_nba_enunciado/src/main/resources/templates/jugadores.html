@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<h2 th:text="'Jugadores de ' + ${equipo.nombre}"></h2>
+
+<br/><br/>
+
+<table border="1">
+    <tr>
+        <th>Nombre</th>
+        <th>Posición</th>
+    </tr>
+
+    <tr th:each="j : ${jugadores}">
+        <td th:text="${j.nombre}"></td>
+        <td th:text="${j.posicion}"></td>
+    </tr>
+</table>
+
+<br/>
+<a th:href="@{/equipos}">Volver equipos</a>
+
+</body>
+</html>

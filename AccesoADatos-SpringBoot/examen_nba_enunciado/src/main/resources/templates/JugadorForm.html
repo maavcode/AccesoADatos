@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Añadir jugador</title>
+</head>
+<body>
+
+<div>
+    <h2 th:text="'Añadir jugador al equipo: ' + ${nombreEquipo}"></h2>
+    <br/>
+
+    @{/jugadores/nuevo/{nombreEquipo}(nombreEquipo=${nombreEquipo})}
+
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombre}" required/><br/>
+
+        <label>Altura:</label>
+        <input type="text" th:field="*{altura}" placeholder="Ej: 2.01"/><br/>
+
+        <label>Posición:</label>
+        <input type="text" th:field="*{posicion}" placeholder="Base, Escolta, Alero..."/><br/>
+
+        <label>Nacimiento:</label>
+        <input type="text" th:field="*{nacimiento}" placeholder="Fecha o texto"/><br/>
+
+        <!-- Equipo (solo lectura) -->
+        <label>Equipo:</label>
+        <input type="text" th:field="*{equipo.nombre}" readonly/><br/><br/>
+
+        <button type="submit">Guardar jugador</button>
+        @{/equipos/{nombre}/jugadores(nombre=${nombreEquipo})}Cancelar</a>
+    </form>
+</div>
+
+</body>
+</html>

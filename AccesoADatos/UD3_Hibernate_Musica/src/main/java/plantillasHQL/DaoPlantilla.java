@@ -1,21 +1,23 @@
-package dao;
+package plantillasHQL;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.query.Query;
 
+import dao.DaoCancion;
+import dao.DaoGenericoHibernate;
 import hibernate.UtilesHibernate;
 import pojosEsther.Cancion;
 import pojosEsther.Disco;
 import pojosEsther.Grupo;
 
-public class DaoDisco extends DaoGenericoHibernate<Disco, String> {
-	private final static Logger LOGGER = Logger.getLogger(DaoDisco.class.getName());
+public class DaoPlantilla extends DaoGenericoHibernate<Disco, String> { // Poner modelo correspondiente
 
-	// BUSCAR DISCO POR NOMBRE [ PARAMETRIZADO ] | EjercicioI
+	Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
+
+	// Obtener lista String [ PARAMETRIZADO ]
 	public List<String> buscarPorNombreParametrizado(String nombre) {
 
 		List<String> result = null;
@@ -28,8 +30,8 @@ public class DaoDisco extends DaoGenericoHibernate<Disco, String> {
 			// Creo la Query HQL
 			String hql = "select c.titulo from Disco d join d.cancions c where d.nombre=:nom";
 			Query q = s.createQuery(hql);
-			q.setParameter("nom", nombre); // nom es la etiqueta, se puede poner ? y luego donde esta o una etiqueta
-
+			q.setParameter("nom", nombre);
+			
 			// El resultado de la Query se inserta en result
 			result = (List<String>) q.getResultList();
 
@@ -47,52 +49,32 @@ public class DaoDisco extends DaoGenericoHibernate<Disco, String> {
 
 		return result;
 	}
-	
-	// REESTRICCION PARA QUE UN DISCO NO SUPERE LOS 60 MINUTOS | EJERCICIO REESTRICCIONES - A
-	public void addCancionADisco(Disco disco, Cancion cancionNueva) throws Exception {
 
-	    // Calcular duración actual del disco
-	    int duracionActual = 0;
-	    for (Cancion cancion : disco.getCancions()) {
-	        duracionActual += cancion.getDuracion();
-	    }
+	// Obtener lista con varios parametros (nombre, edad, etc)
+	public List<Object[]> obtenerDuracionTotalDeTodos() {
 
-	    // Duración de la nueva canción
-	    Double duracionCancion = cancionNueva.getDuracion();
+		Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
+		List<Object[]> resultados = null;
 
-	    // Comprobar límite de 60 minutos
-	    if (duracionActual + duracionCancion > 60) {
-	    	System.out.println("Duracion total de " + disco.getNombre() +" = " + duracionActual);
-	        throw new Exception("El disco no puede superar los 60 minutos");
-	    }
+		try {
+			s.beginTransaction();
 
-	    // Si no supera el límite, se añade la canción
-	    disco.getCancions().add(cancionNueva);
+			String hql = "select d.nombre, sum(c.duracion) " + "from Disco d join d.cancions c " + "group by d.nombre";
+
+			Query q = s.createQuery(hql);
+			resultados = q.getResultList();
+
+			s.getTransaction().commit();
+
+		} catch (Exception e) {
+			s.getTransaction().rollback();
+			e.printStackTrace();
+		}
+
+		return resultados;
 	}
 	
-	public Disco buscarPorNombre(String nombre) {
-	    Disco disco = null;
-	    Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
-
-	    try {
-	        s.beginTransaction();
-
-	        String hql = "from Disco d where d.nombre = :nom";
-	        Query q = s.createQuery(hql);
-	        q.setParameter("nom", nombre);
-
-	        disco = (Disco) q.uniqueResult();
-
-	        s.getTransaction().commit();
-
-	    } catch (Exception e) {
-	        
-
-	    } 
-
-	    return disco;
-	}
-	
+	// Modificar
 	public void ModificarDuracionCanciones(String nombre) {
 		Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
 
@@ -116,63 +98,58 @@ public class DaoDisco extends DaoGenericoHibernate<Disco, String> {
 	        s.getTransaction().commit();
 
 	    } catch (Exception e) {
-	        
-
-	    } 
+			s.getTransaction().rollback();
+			e.printStackTrace();
+		}
 	}
 	
+	// Insertar con REESTRICCION
 	public void addDiscoAGrupo(Grupo grupo, Disco nuevoDisco) {
 		Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
 
 		try {
 		    s.beginTransaction();
 		    
-		    if (grupo.getFecha().getDate() >  nuevoDisco.getFecha().getDate()) { // REESTRICCION
+		    if (grupo.getFecha().getDate() >  nuevoDisco.getFecha().getDate()) {
 		    	grupo.getDiscos().add(nuevoDisco);
 		    	// Guardar el disco
 			    s.save(nuevoDisco);
 			} else {
 				throw new Exception("La fecha de salida del disco debe ser mayor a la de creacion del grupo");
 			}
-		    
+
 		    s.getTransaction().commit();
 		    System.out.println("Disco creado correctamente.");
 
 		} catch (Exception e) {
-		    try { s.getTransaction().rollback(); } catch (Exception ex) {}
-		    System.out.println("ERROR: " + e.getMessage());
-		} finally {
-		    UtilesHibernate.closeSession();
-		    UtilesHibernate.closeSessionFactory();
+			s.getTransaction().rollback();
+			e.printStackTrace();
 		}
 
 	}
 	
-	public List<Object[]> obtenerDuracionTotalDeTodos() {
-
+	// Tipico Buscar por Nombre
+	public Disco buscarPorNombre(String nombre) {
+	    Disco disco = null;
 	    Session s = UtilesHibernate.getSessionFactory().getCurrentSession();
-	    List<Object[]> resultados = null;
 
 	    try {
 	        s.beginTransaction();
 
-	        String hql = 
-	            "select d.nombre, sum(c.duracion) " +
-	            "from Disco d join d.cancions c " +
-	            "group by d.nombre";
-
+	        String hql = "from Disco d where d.nombre = :nom";
 	        Query q = s.createQuery(hql);
-	        resultados = q.getResultList();
+	        q.setParameter("nom", nombre);
+
+	        disco = (Disco) q.uniqueResult();
 
 	        s.getTransaction().commit();
 
 	    } catch (Exception e) {
-	        try { s.getTransaction().rollback(); } catch (Exception ex) {}
-	        throw e;
-	    }
+			s.getTransaction().rollback();
+			e.printStackTrace();
+		}
 
-	    return resultados;
+	    return disco;
 	}
-
 
 }

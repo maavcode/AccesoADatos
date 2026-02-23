@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>Mantenimiento de direcciones</title>
+</head>
+<body>
+	<div>
+		<br>
+		<h2 th:if="${list.isEmpty()}">No hay direcciones para el cliente 
+			<td th:utext="${clientedto.nombre}"></td> <td th:utext="${clientedto.apellidos}"></td>
+		</h2>
+		<div th:if="${!list.isEmpty()}">
+			<h2>Mantenimiento de direcciones del cliente 
+				<td th:utext="${clientedto.nombre}"></td> <td th:utext="${clientedto.apellidos}"></td>
+			</h2>
+			<br>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>id</th>
+						<th>Direccion</th>
+						<th>País</th>
+						<th>CP</th>					
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="direcciondto : ${list}">
+						<td th:utext="${direcciondto.idDireccion}">...</td>
+						<td th:utext="${direcciondto.descripcion}">...</td>
+						<td th:utext="${direcciondto.pais}">...</td>
+						<td th:utext="${direcciondto.cp}">...</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<br>
+		<div>
+			<a th:href="@{/clientes/{idCliente}/direcciones/new/(idCliente=${clientedto.idCliente})}" >Nueva direccion</a>
+			</br>
+			<a th:href="@{/clientes/{idCliente}/direcciones/add/(idCliente=${clientedto.idCliente})}" >Añadir dirección ya existente</a>
+			</br>			
+			<a th:href="@{/clientes/{idCliente}/direcciones/(idCliente=${clientedto.idCliente})}">Volver a la lista de direcciones</a>
+		</div>
+	</div>
+</body>
+</html>

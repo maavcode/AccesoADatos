@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+		<property name="connection.url">jdbc:mysql://localhost:3306/diinventarioexamen</property>
+		<property name="connection.username">root</property>
+		<property name="connection.password">mysql</property>
+	
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">1</property>
+		
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.MySQLDialect</property>
+		
+		<!-- Enable Hibernate's automatic session context management -->
+		<property name="current_session_context_class">thread</property>
+		
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider
+		</property>
+		
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
+		
+		<!-- Pojos -->
+		<mapping class="pojos.Articulo"/>
+		<mapping class="pojos.Departamento"/>
+		<mapping class="pojos.Espacio"/>
+		<mapping class="pojos.Ficheromodelo"/>
+		<mapping class="pojos.Ficherousuario"/>
+		<mapping class="pojos.Grupo"/>
+		<mapping class="pojos.Modeloarticulo"/>
+		<mapping class="pojos.Permiso"/>
+		<mapping class="pojos.Permisosrol"/>
+		<mapping class="pojos.Rol"/>
+		<mapping class="pojos.Salida"/>
+		<mapping class="pojos.Tipoarticulo"/>
+		<mapping class="pojos.Tipousuario"/>
+		<mapping class="pojos.Usuario"/>
+		
+				
+		
+	</session-factory>
+</hibernate-configuration>
