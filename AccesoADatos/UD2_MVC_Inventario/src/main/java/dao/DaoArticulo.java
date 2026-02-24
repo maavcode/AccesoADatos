@@ -5,25 +5,26 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import pojos.Articulo;
 import excepciones.BusinessException;
 import jdbc.ConexionJdbc;
 
-// Clase DAO específica para la entidad Articulo
-// Hereda de DaoGenerico parametrizado con Articulo y clave Integer
 public class DaoArticulo extends DaoGenerico<Articulo, Integer>{
 
-    // Método para insertar un artículo nuevo en la base de datos
     public void grabar(Articulo a) throws BusinessException {
-
-        // Validación de negocio: modelo y espacio son obligatorios
+    	
+        // REESTRICCION: Modelo y Espacio son obligatorios
         if (a.getModelo() == null)
             throw new BusinessException("El modelo es obligatorio");
         if (a.getEspacio() == null)
             throw new BusinessException("El espacio es obligatorio");
-
+        
+        // REESTRICCION: Estado operativo
+        a.setEstado("operativo");
+        
         // Obtener conexión desde clase de conexión JDBC
         Connection con = ConexionJdbc.getConnection();
         PreparedStatement pstm = null;
@@ -39,12 +40,12 @@ public class DaoArticulo extends DaoGenerico<Articulo, Integer>{
             // Asignar valores al PreparedStatement
             pstm.setInt(1,a.getIdArticulo());
             pstm.setString(2,a.getNumserie());
-            pstm.setString(3,"operativo"); // Estado fijo al crear
-            pstm.setDate(4,new java.sql.Date(a.getFechaalta().getTime())); // fecha de alta
-            pstm.setObject(5,a.getUsuarioalta()); // ID usuario que da de alta
-            pstm.setObject(6,a.getModelo()); // Modelo
-            pstm.setObject(7,a.getDepartamento()); // Departamento
-            pstm.setObject(8,a.getEspacio()); // Espacio
+            pstm.setString(3,a.getEstado());
+            pstm.setDate(4,new java.sql.Date(System.currentTimeMillis())); // FECHA DE HOY
+            pstm.setObject(5,a.getUsuarioalta());
+            pstm.setObject(6,a.getModelo());
+            pstm.setObject(7,a.getDepartamento()); 
+            pstm.setObject(8,a.getEspacio()); 
 
             // Ejecutar inserción en BD
             pstm.executeUpdate();

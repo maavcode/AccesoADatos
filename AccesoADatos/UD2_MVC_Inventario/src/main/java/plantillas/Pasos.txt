@@ -1,0 +1,6 @@
+PASOS A SEGUIR PARA CUALQUIER EJERCICIO
+
+1. Identificar POJOs a usar y DAOs a usar.
+2. Crear los POJOS y los DAOs (o las funciones necesarias)
+	- El DAO extiende del DAO generico ->  extends DaoGenerico<"POJO", Integer>
+3. 
