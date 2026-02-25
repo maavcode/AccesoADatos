@@ -14,6 +14,44 @@ import jdbc.ConexionJdbc;
 
 public class DaoArticulo extends DaoGenerico<Articulo, Integer>{
 
+	// Buscar un artículo por su ID
+    @Override
+    public Articulo buscarPorId(Integer id)  throws BusinessException {
+        Articulo a = null;
+        Connection con = ConexionJdbc.getConnection();
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try{
+            String sql = "SELECT * FROM articulo WHERE idarticulo=?";
+            pstm = con.prepareStatement(sql);
+            pstm.setInt(1, id);
+            rs = pstm.executeQuery();
+
+            // Si existe, mapear datos al objeto Articulo
+            if (rs.next()){
+                a  = new Articulo();
+                a.setIdArticulo(rs.getInt("idarticulo"));
+                a.setNumserie(rs.getString("numserie"));
+                a.setEstado(rs.getString("estado"));
+                a.setFechaalta(rs.getDate("fechaalta"));
+                a.setFechabaja(rs.getDate("fechabaja"));
+                a.setUsuarioalta(rs.getInt("usuarioalta"));
+                a.setUsuariobaja(rs.getInt("usuariobaja"));
+                a.setModelo(rs.getInt("modelo"));
+                a.setDepartamento(rs.getInt("departamento"));
+                a.setEspacio(rs.getInt("espacio"));
+                a.setDentrode(rs.getInt("dentrode"));
+                a.setObservaciones(rs.getString("observaciones"));
+            }
+            return a;
+        } catch (SQLException e){
+            throw new BusinessException("Error al consultar");
+        } finally{
+            ConexionJdbc.cerrar(pstm);
+        }
+    }
+	
+	// Practica 2 - Ejercicio B1
     public void grabar(Articulo a) throws BusinessException {
     	
         // REESTRICCION: Modelo y Espacio son obligatorios
@@ -59,39 +97,37 @@ public class DaoArticulo extends DaoGenerico<Articulo, Integer>{
         }
     }
 
-    // Método para actualizar el estado de un artículo (Práctica 2)
-    public void actualizarEstado(int idArticulo, String nuevoEstado, int usuario) throws BusinessException {
+    // Practica 2 - Ejercicio B2
+    public void actualizarEstado(int idArticulo, String nuevoEstado) throws BusinessException {
 
         // Buscar artículo por ID
         Articulo a = buscarPorId(idArticulo);
-        if (a == null)
+        // REESTRICCION: El articulo debe existir
+        if (a == null) {
             throw new BusinessException("El artículo no existe");
+        }
 
-        String actual = a.getEstado();
+        String estadoActual = a.getEstado();
 
-        // Validaciones de negocio según restricción 2
-        if (actual.equals("retirado"))
+        // REESTRICCION: Si estado es retirado, no se puede cambiar el estado
+        if (estadoActual.equals("retirado")) {
             throw new BusinessException("No se puede cambiar el estado de un artículo retirado");
-
-        if (actual.equals("operativo") && nuevoEstado.equals("retirado"))
-            throw new BusinessException("No se puede retirar desde actualización, use baja");
-
-        if (actual.equals("mantenimiento") && nuevoEstado.equals("retirado"))
-            throw new BusinessException("No se puede retirar desde actualización, use baja");
-
-        if (!(nuevoEstado.equals("operativo") || nuevoEstado.equals("mantenimiento")))
-            throw new BusinessException("Estado inválido");
-
+        }
+        // REESTRICCION: Si es operativo y se quiere cambiar a retirado no se puede
+        if (nuevoEstado.equals("retirado")) {
+        	throw new BusinessException("No se puede retirar, use dar de baja");
+		}
+        
         // Actualizar en BD
         Connection con = ConexionJdbc.getConnection();
         PreparedStatement pstm = null;
         try {
-            String sql = "UPDATE articulo SET estado=?, usuarioalta=? WHERE idarticulo=?";
+            String sql = "UPDATE articulo SET estado=? WHERE idarticulo=?";
             pstm = con.prepareStatement(sql);
             pstm.setString(1, nuevoEstado);
-            pstm.setInt(2, usuario);
-            pstm.setInt(3, idArticulo);
+            pstm.setInt(2, idArticulo);
             pstm.executeUpdate();
+            
         } catch (SQLException e) {
             throw new BusinessException("Error al actualizar estado");
         } finally {
@@ -99,19 +135,20 @@ public class DaoArticulo extends DaoGenerico<Articulo, Integer>{
         }
     }
 
-    // Método para dar de baja (retirar) un artículo
+    // Practica 2 - Ejercicio B3
     public void darDeBaja(int idArticulo, int usuario) throws BusinessException {
 
         // Buscar artículo
         Articulo a = buscarPorId(idArticulo);
+        
+        // REESTRICCION: El articulo debe existir
         if (a == null)
             throw new BusinessException("El artículo no existe");
 
-        // Validación: si ya está retirado, no se puede
+        // REESTRICCION: Si ya está retirado, no se puede retirar
         if (a.getEstado().equals("retirado"))
             throw new BusinessException("El artículo ya está retirado");
 
-        // Actualizar en BD: estado = retirado, registrar usuario y fecha de baja
         Connection con = ConexionJdbc.getConnection();
         PreparedStatement pstm = null;
         try {
@@ -129,7 +166,7 @@ public class DaoArticulo extends DaoGenerico<Articulo, Integer>{
         }
     }
 
-    // Método para actualizar masivamente todos los artículos que tienen fecha_baja a retirado
+    // Practica 2 - Ejercicio B4
     public void actualizarRetiradosMasivo() throws BusinessException {
         Connection con = ConexionJdbc.getConnection();
         PreparedStatement pstm = null;
@@ -206,42 +243,7 @@ public class DaoArticulo extends DaoGenerico<Articulo, Integer>{
         }
     }
 
-    // Buscar un artículo por su ID
-    @Override
-    public Articulo buscarPorId(Integer id)  throws BusinessException {
-        Articulo a = null;
-        Connection con = ConexionJdbc.getConnection();
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        try{
-            String sql = "SELECT * FROM articulo WHERE idarticulo=?";
-            pstm = con.prepareStatement(sql);
-            pstm.setInt(1, id);
-            rs = pstm.executeQuery();
-
-            // Si existe, mapear datos al objeto Articulo
-            if (rs.first()){
-                a  = new Articulo();
-                a.setIdArticulo(rs.getInt("idarticulo"));
-                a.setNumserie(rs.getString("numserie"));
-                a.setEstado(rs.getString("estado"));
-                a.setFechaalta(rs.getDate("fechaalta"));
-                a.setFechabaja(rs.getDate("fechabaja"));
-                a.setUsuarioalta(rs.getInt("usuarioalta"));
-                a.setUsuariobaja(rs.getInt("usuariobaja"));
-                a.setModelo(rs.getInt("modelo"));
-                a.setDepartamento(rs.getInt("departamento"));
-                a.setEspacio(rs.getInt("espacio"));
-                a.setDentrode(rs.getInt("dentrode"));
-                a.setObservaciones(rs.getString("observaciones"));
-            }
-            return a;
-        } catch (SQLException e){
-            throw new BusinessException("Error al consultar");
-        } finally{
-            ConexionJdbc.cerrar(pstm);
-        }
-    }
+    
 
     // Buscar todos los artículos en la tabla
     @Override
